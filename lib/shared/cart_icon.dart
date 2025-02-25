@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_sample/providers/cart_notifier.dart';
 import 'package:riverpod_sample/screens/cart/cart_screen.dart';
 
-class CartIcon extends StatelessWidget {
+class CartIcon extends ConsumerWidget {
   const CartIcon({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final int numberOfCartItems = ref.watch(cartNotifierProvider).length;
+
     return Stack(
       children: [
         IconButton(
@@ -26,6 +30,10 @@ class CartIcon extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.blueAccent,
+            ),
+            child: Text(
+              numberOfCartItems.toString(),
+              style: TextStyle(color: Colors.white),
             ),
           ),
         ),
